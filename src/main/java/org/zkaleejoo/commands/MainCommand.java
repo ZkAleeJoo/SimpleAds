@@ -132,11 +132,17 @@ public class MainCommand implements CommandExecutor, TabCompleter {
         }
     }
 
-    public void help(CommandSender sender) {
-        sender.sendMessage(MessageUtils.getColoredMessage("&8[&9SimpleAds&8] &fList of commands: &b" + plugin.getDescription().getVersion()));
-        sender.sendMessage(MessageUtils.getColoredMessage("&9> &a/ads title [title] <subtitle> &7- Send a title"));
-        sender.sendMessage(MessageUtils.getColoredMessage("&9> &a/ads anunce [message] &7- Send a chat announcement"));
-        sender.sendMessage(MessageUtils.getColoredMessage("&9> &a/ads reload &7- Reload configuration"));
+        public void help(CommandSender sender) {
+        MainConfigManager config = plugin.getMainConfigManager();
+        String version = plugin.getDescription().getVersion();
+        
+        sender.sendMessage(MessageUtils.getColoredMessage(
+            config.getHelpHeader().replace("{version}", version)
+        ));
+        
+        for (String line : config.getHelpLines()) {
+            sender.sendMessage(MessageUtils.getColoredMessage(line));
+        }
     }
 
     @Override

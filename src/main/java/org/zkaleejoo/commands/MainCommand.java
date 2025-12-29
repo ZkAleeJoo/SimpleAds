@@ -12,6 +12,8 @@ import org.zkaleejoo.utils.MessageUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.bukkit.Registry;
+import org.bukkit.NamespacedKey;
 
 public class MainCommand implements CommandExecutor, TabCompleter {
 
@@ -117,10 +119,16 @@ public class MainCommand implements CommandExecutor, TabCompleter {
 
     private void playConfigSound(Player player, String soundName) {
         try {
-            Sound sound = Sound.valueOf(soundName.toUpperCase());
-            player.playSound(player.getLocation(), sound, 1.0f, 1.0f);
+            NamespacedKey key = NamespacedKey.minecraft(soundName.toLowerCase());
+            Sound sound = Registry.SOUNDS.get(key);
+            
+            if (sound != null) {
+                player.playSound(player.getLocation(), sound, 1.0f, 1.0f);
+            } else {
+                plugin.getLogger().warning("Sound not found in Minecraft registry: " + soundName);
+            }
         } catch (Exception e) {
-            plugin.getLogger().warning("Invalid sound in config: " + soundName);
+            plugin.getLogger().warning("Invalid sound format in config: " + soundName);
         }
     }
 

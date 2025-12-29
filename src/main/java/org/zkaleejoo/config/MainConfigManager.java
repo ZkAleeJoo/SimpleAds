@@ -2,99 +2,78 @@ package org.zkaleejoo.config;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.zkaleejoo.SimpleAds;
-
 import java.util.List;
 
 public class MainConfigManager {
-
+    
     private CustomConfig configFile;
+    private CustomConfig langFile;
     private SimpleAds plugin;
-
-    private String nopermissionMessage;
+    
     private String prefix;
-    private String pluginreload;
-    private Integer titlefadeIn;
-    private Integer titlestay;
-    private Integer titlefadeOut;
-    private Boolean tittlesoundenabled;
-    private String tittlesound;
+    private String selectedLanguage;
+    private int titleFadeIn, titleStay, titleFadeOut;
+    private boolean titleSoundEnabled, chatSoundEnabled;
+    private String titleSound, chatSound;
 
-    private List<String> messages;
-    private Boolean chatsoundenabled;
-    private String chatsound;
-
+    private String noPermission, pluginReload, usageTitle, usageAnunce, errorSound;
+    private List<String> adDecoration;
 
     public MainConfigManager(SimpleAds plugin) {
         this.plugin = plugin;
-        configFile = new CustomConfig("config.yml", null, plugin);
+        configFile = new CustomConfig("config.yml", null, plugin, false);
         configFile.registerConfig();
         loadConfig();
     }
 
     public void loadConfig() {
         FileConfiguration config = configFile.getConfig();
-        nopermissionMessage = config.getString("no-permission-message");
-        prefix = config.getString("prefix");
-        pluginreload = config.getString("plugin-reload");
-        titlefadeIn = config.getInt("title.fadein");
-        titlestay = config.getInt("title.stay");
-        titlefadeOut = config.getInt("title.fadeout");
-        tittlesoundenabled = config.getBoolean("title.sound.enabled");
-        tittlesound = config.getString("title.sound.sound");
-        messages = config.getStringList("anunce.decoration");
-        chatsoundenabled = config.getBoolean("anunce.sound.enabled");
-        chatsound = config.getString("anunce.sound.sound");
+        
+        prefix = config.getString("general.prefix", "&8[&9SimpleAds&8] ");
+        selectedLanguage = config.getString("general.language", "en");
+        
+        titleFadeIn = config.getInt("title.fadein", 10);
+        titleStay = config.getInt("title.stay", 70);
+        titleFadeOut = config.getInt("title.fadeout", 20);
+        titleSoundEnabled = config.getBoolean("title.sound.enabled", true);
+        titleSound = config.getString("title.sound.sound", "ENTITY_PLAYER_LEVELUP");
+        
+        chatSoundEnabled = config.getBoolean("anunce.sound.enabled", true);
+        chatSound = config.getString("anunce.sound.sound", "ENTITY_PLAYER_LEVELUP");
 
+        String langPath = "messages_" + selectedLanguage + ".yml";
+        langFile = new CustomConfig(langPath, "lang", plugin, false);
+        langFile.registerConfig();
+        FileConfiguration lang = langFile.getConfig();
+
+        noPermission = lang.getString("messages.no-permission", "&cNo permission.");
+        pluginReload = lang.getString("messages.plugin-reload", "&aReloaded!");
+        usageTitle = lang.getString("messages.usage-title", "&cUsage: /ads title...");
+        usageAnunce = lang.getString("messages.usage-anunce", "&cUsage: /ads anunce...");
+        errorSound = lang.getString("messages.error-sound", "&cSound error.");
+        adDecoration = lang.getStringList("anunce.decoration");
     }
 
-    public void reloadConfig(){
+    public void reloadConfig() {
         configFile.reloadConfig();
+        if (langFile != null) langFile.reloadConfig();
         loadConfig();
     }
 
-
-    public String getNopermissionMessage() {
-        return nopermissionMessage;
-    }
-
-    public String getPrefix() {
-        return prefix;
-    }
-
-    public String getPluginreload() {
-        return pluginreload;
-    }
-
-    public String getTittlesound() {
-        return tittlesound;
-    }
-
-    public Boolean getTittlesoundenabled() {
-        return tittlesoundenabled;
-    }
-
-    public Integer getTitlefadeOut() {
-        return titlefadeOut;
-    }
-
-    public Integer getTitlestay() {
-        return titlestay;
-    }
-
-    public Integer getTitlefadeIn() {
-        return titlefadeIn;
-    }
-
-    public List<String> getMessages() {
-        return messages;
-    }
-
-    public String getChatsound() {
-        return chatsound;
-    }
-
-    public Boolean getChatsoundenabled() {
-        return chatsoundenabled;
-    }
+    public String getPrefix() { return prefix; }
+    public String getNoPermission() { return noPermission; }
+    public String getPluginReload() { return pluginReload; }
+    public String getUsageTitle() { return usageTitle; }
+    public String getUsageAnunce() { return usageAnunce; }
+    public String getErrorSound() { return errorSound; }
+    public List<String> getAdDecoration() { return adDecoration; }
+    
+    public int getTitleFadeIn() { return titleFadeIn; }
+    public int getTitleStay() { return titleStay; }
+    public int getTitleFadeOut() { return titleFadeOut; }
+    public boolean isTitleSoundEnabled() { return titleSoundEnabled; }
+    public String getTitleSound() { return titleSound; }
+    
+    public boolean isChatSoundEnabled() { return chatSoundEnabled; }
+    public String getChatSound() { return chatSound; }
 }
-

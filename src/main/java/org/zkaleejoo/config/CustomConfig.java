@@ -1,14 +1,15 @@
 package org.zkaleejoo.config;
 
-import org.zkaleejoo.SimpleAds;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.zkaleejoo.SimpleAds;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 
 public class CustomConfig {
     private SimpleAds plugin;
@@ -18,7 +19,7 @@ public class CustomConfig {
     private String folderName;
     private boolean newFile;
 
-    public CustomConfig(String fileName, String folderName, SimpleAds plugin){
+    public CustomConfig(String fileName, String folderName, SimpleAds plugin, boolean newFile) {
         this.fileName = fileName;
         this.folderName = folderName;
         this.plugin = plugin;
@@ -29,39 +30,29 @@ public class CustomConfig {
         return this.fileName;
     }
 
-    public void updateConfig() {
-        InputStream defaultConfigStream = plugin.getResource(fileName);
-        if (defaultConfigStream == null) return;
 
-        YamlConfiguration defaultConfig = YamlConfiguration.loadConfiguration(new InputStreamReader(defaultConfigStream));
-        FileConfiguration currentConfig = getConfig();
-
-        for (String key : defaultConfig.getKeys(true)) {
-            if (!currentConfig.contains(key)) {
-                currentConfig.set(key, defaultConfig.get(key));
+    public void registerConfig() {
+        if (folderName != null) {
+            File folder = new File(plugin.getDataFolder(), folderName);
+            if (!folder.exists()) {
+                folder.mkdirs(); 
             }
-        }
-        saveConfig();
-    }
-
-    public void registerConfig(){
-        if(folderName != null){
-            file = new File(plugin.getDataFolder() +File.separator + folderName,fileName);
-        }else{
+            file = new File(folder, fileName);
+        } else {
             file = new File(plugin.getDataFolder(), fileName);
         }
 
-        if(!file.exists()){
-            if(newFile){
-                try{
+        if (!file.exists()) {
+            if (newFile) {
+                try {
                     file.createNewFile();
-                }catch(IOException e){
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
-            }else{
-                if(folderName != null){
-                    plugin.saveResource(folderName+File.separator+fileName, false);
-                }else{
+            } else {
+                if (folderName != null) {
+                    plugin.saveResource(folderName + File.separator + fileName, false);
+                } else {
                     plugin.saveResource(fileName, false);
                 }
             }
@@ -70,15 +61,29 @@ public class CustomConfig {
         fileConfiguration = new YamlConfiguration();
         try {
             fileConfiguration.load(file);
-
-            updateConfig();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InvalidConfigurationException e) {
+            if (!newFile) {
+                updateConfig();
+            }
+        } catch (IOException | InvalidConfigurationException e) {
             e.printStackTrace();
         }
     }
 
+    public void updateConfig() {
+        try {
+            String resourcePath = (folderName != null) ? folderName + "/" + fileName : fileName;
+            InputStream resourceStream = plugin.getResource(resourcePath);
+            
+            if (resourceStream == null) return;
+
+            YamlConfiguration jarConfig = YamlConfiguration.loadConfiguration(new InputStreamReader(resourceStream, StandardCharsets.UTF_8));
+            fileConfiguration.setDefaults(jarConfig);
+            fileConfiguration.options().copyDefaults(true);
+            saveConfig();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     public void saveConfig() {
         try {
@@ -96,20 +101,22 @@ public class CustomConfig {
     }
 
     public boolean reloadConfig() {
-        if (fileConfiguration == null) {
-            if(folderName != null){
-                file = new File(plugin.getDataFolder() +File.separator + folderName, fileName);
-            }else{
-                file = new File(plugin.getDataFolder(), fileName);
-            }
-
+        if(folderName != null){
+            file = new File(plugin.getDataFolder() + File.separator + folderName, fileName);
+        } else {
+            file = new File(plugin.getDataFolder(), fileName);
         }
+
         fileConfiguration = YamlConfiguration.loadConfiguration(file);
 
-        if(file != null) {
-            YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(file);
+        String resourcePath = (folderName != null) ? folderName + "/" + fileName : fileName;
+        InputStream resourceStream = plugin.getResource(resourcePath);
+        
+        if (resourceStream != null) {
+            YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(new InputStreamReader(resourceStream, StandardCharsets.UTF_8));
             fileConfiguration.setDefaults(defConfig);
         }
+        
         return true;
     }
 }

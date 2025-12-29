@@ -1,5 +1,6 @@
-# CONFIG
-prefix: '&8[&9SimpleAds&8] '
+general:
+  prefix: '&8[&9SimpleAds&8] '
+  language: "en"
 
 title:
   fadein: 10
@@ -7,25 +8,9 @@ title:
   fadeout: 20
   sound:
     enabled: true
-    sound: ENTITY_PLAYER_LEVELUP # https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Sound.html
+    sound: ENTITY_PLAYER_LEVELUP
 
 anunce:
-  decoration: # You can change this to your liking
-    - '&8&l╔═══════                    ═══════╗'
-    - '                  &c&lNEW ANNOUNCEMENT'
-    - ''
-    - '&9⇨ {message}'
-    - ''
-    - '&8&l╚═══════                    ═══════╝'
   sound:
     enabled: true
-    sound: ENTITY_PLAYER_LEVELUP # https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Sound.html
-
-
-# MESSAGES
-no-permission-reload: '&cYou do not have permission to use that command &7simpleads.use'
-plugin-reload: '&aThe plugin has been reloaded successfully'
-error-use-title: '&cUsage: /ads title [message]'
-error-use-anunce: '&cUsage: /ads anunce [message]'
-error-playing-sound: '&cAn error occurred while trying to play the sound, please check
-  that the sound is correct'
+    sound: ENTITY_PLAYER_LEVELUP

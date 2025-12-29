@@ -15,8 +15,8 @@ public class SimpleAds extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        registerCommands();
         mainConfigManager = new MainConfigManager(this);
+        registerCommands();
 
         Bukkit.getConsoleSender().sendMessage(
                 "  _________.__               .__            _____       .___      \n" +

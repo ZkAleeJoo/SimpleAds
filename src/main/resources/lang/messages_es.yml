@@ -4,6 +4,9 @@ messages:
   usage-title: '&cUso: /ads title [mensaje]'
   usage-anunce: '&cUso: /ads anunce [mensaje]'
   error-sound: '&cOcurrió un error al intentar reproducir el sonido.'
+  update-available: "&e¡Ya está disponible una nueva versión! (&b{version}&e)"
+  update-current: "&7Tu versión actual: &c{version}"
+  update-download: "&eDescárgala para obtener mejoras y correcciones."
 
 anunce:
   decoration:

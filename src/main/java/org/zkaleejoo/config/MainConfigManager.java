@@ -18,6 +18,8 @@ public class MainConfigManager {
 
     private String noPermission, pluginReload, usageTitle, usageAnunce, errorSound;
     private List<String> adDecoration;
+    private boolean updateCheckEnabled;
+    private String msgUpdateAvailable, msgUpdateCurrent, msgUpdateDownload;
 
     public MainConfigManager(SimpleAds plugin) {
         this.plugin = plugin;
@@ -52,6 +54,10 @@ public class MainConfigManager {
         usageAnunce = lang.getString("messages.usage-anunce", "&cUsage: /ads anunce...");
         errorSound = lang.getString("messages.error-sound", "&cSound error.");
         adDecoration = lang.getStringList("anunce.decoration");
+        updateCheckEnabled = config.getBoolean("general.update-check", true);
+        msgUpdateAvailable = lang.getString("messages.update-available", "&eNew version: {version}");
+        msgUpdateCurrent = lang.getString("messages.update-current", "&7Current: {version}");
+        msgUpdateDownload = lang.getString("messages.update-download", "&eUpdate now!");
     }
 
     public void reloadConfig() {
@@ -76,4 +82,8 @@ public class MainConfigManager {
     
     public boolean isChatSoundEnabled() { return chatSoundEnabled; }
     public String getChatSound() { return chatSound; }
+    public boolean isUpdateCheckEnabled() { return updateCheckEnabled; }
+    public String getMsgUpdateAvailable() { return msgUpdateAvailable; }
+    public String getMsgUpdateCurrent() { return msgUpdateCurrent; }
+    public String getMsgUpdateDownload() { return msgUpdateDownload; }
 }

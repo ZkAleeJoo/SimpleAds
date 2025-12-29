@@ -1,6 +1,7 @@
 general:
   prefix: '&8[&9SimpleAds&8] '
   language: "en"
+  update-check: true
 
 title:
   fadein: 10

@@ -20,6 +20,8 @@ public class MainConfigManager {
     private List<String> adDecoration;
     private boolean updateCheckEnabled;
     private String msgUpdateAvailable, msgUpdateCurrent, msgUpdateDownload;
+    private String titleSent, anunceSent, helpHeader;
+    private List<String> helpLines;
 
     public MainConfigManager(SimpleAds plugin) {
         this.plugin = plugin;
@@ -58,6 +60,10 @@ public class MainConfigManager {
         msgUpdateAvailable = lang.getString("messages.update-available", "&eNew version: {version}");
         msgUpdateCurrent = lang.getString("messages.update-current", "&7Current: {version}");
         msgUpdateDownload = lang.getString("messages.update-download", "&eUpdate now!");
+        titleSent = lang.getString("messages.title-sent", "&aTitle sent!");
+        anunceSent = lang.getString("messages.anunce-sent", "&aAnnouncement sent!");
+        helpHeader = lang.getString("messages.help-header", "&fCommands:");
+        helpLines = lang.getStringList("messages.help-lines");
     }
 
     public void reloadConfig() {
@@ -86,4 +92,10 @@ public class MainConfigManager {
     public String getMsgUpdateAvailable() { return msgUpdateAvailable; }
     public String getMsgUpdateCurrent() { return msgUpdateCurrent; }
     public String getMsgUpdateDownload() { return msgUpdateDownload; }
+
+    public String getTitleSent() { return titleSent; }
+    public String getAnunceSent() { return anunceSent; }
+    public String getHelpHeader() { return helpHeader; }
+    public List<String> getHelpLines() { return helpLines; }
+
 }

@@ -1,0 +1,15 @@
+messages:
+  no-permission: '&cNo tienes permiso para usar ese comando &7simpleads.use'
+  plugin-reload: '&aEl plugin ha sido recargado exitosamente'
+  usage-title: '&cUso: /ads title [mensaje]'
+  usage-anunce: '&cUso: /ads anunce [mensaje]'
+  error-sound: '&cOcurrió un error al intentar reproducir el sonido.'
+
+anunce:
+  decoration:
+    - '&8&l╔═══════                    ═══════╗'
+    - '                  &c&lNUEVO ANUNCIO'
+    - ''
+    - '&9⇨ {message}'
+    - ''
+    - '&8&l╚═══════                    ═══════╝'

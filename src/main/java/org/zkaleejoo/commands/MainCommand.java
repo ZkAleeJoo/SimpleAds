@@ -74,7 +74,7 @@ public class MainCommand implements CommandExecutor, TabCompleter {
                 }
                 
                 if (!(sender instanceof Player)) {
-                    sender.sendMessage(MessageUtils.getColoredMessage(prefix + "&aTitle sent to all players."));
+                    sender.sendMessage(MessageUtils.getColoredMessage(prefix + config.getAnunceSent()));
                 }
                 return true;
             }
@@ -107,7 +107,7 @@ public class MainCommand implements CommandExecutor, TabCompleter {
                 }
 
                 if (!(sender instanceof Player)) {
-                    sender.sendMessage(MessageUtils.getColoredMessage(prefix + "&aAnnouncement sent to all players."));
+                    sender.sendMessage(MessageUtils.getColoredMessage(prefix + config.getTitleSent()));
                 }
                 return true;
             }

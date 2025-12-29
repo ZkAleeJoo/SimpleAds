@@ -7,6 +7,13 @@ messages:
   update-available: "&eA new version is available! (&b{version}&e)"
   update-current: "&7Your current version: &c{version}"
   update-download: "&eDownload it to get improvements and fixes."
+  title-sent: "&aTitle sent to all players."
+  anunce-sent: "&aAnnouncement sent to all players."
+  help-header: "&8[&9SimpleAds&8] &fList of commands: &b{version}"
+  help-lines:
+    - "&9> &a/ads title [title] <subtitle> &7- Send a title"
+    - "&9> &a/ads anunce [message] &7- Send a chat announcement"
+    - "&9> &a/ads reload &7- Reload configuration"
 
 anunce:
   decoration:

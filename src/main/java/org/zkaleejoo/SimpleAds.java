@@ -1,5 +1,6 @@
 package org.zkaleejoo;
 
+import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.zkaleejoo.commands.MainCommand;
@@ -17,6 +18,8 @@ public class SimpleAds extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        int pluginId = 28650; 
+        Metrics metrics = new Metrics(this, pluginId);
         mainConfigManager = new MainConfigManager(this);
         registerCommands();
         getServer().getPluginManager().registerEvents(new PlayerJoinListener(this), this);
@@ -52,7 +55,7 @@ public class SimpleAds extends JavaPlugin {
 
     private void checkUpdates() {
     if (!mainConfigManager.isUpdateCheckEnabled()) return;
-    new UpdateChecker(this, 122239).getVersion(version -> {
+    new UpdateChecker(this, 0).getVersion(version -> {
         if (this.getDescription().getVersion().equalsIgnoreCase(version)) {
             getLogger().info("You are using the latest version!");
         } else {

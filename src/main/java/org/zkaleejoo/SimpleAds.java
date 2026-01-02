@@ -55,7 +55,7 @@ public class SimpleAds extends JavaPlugin {
 
     private void checkUpdates() {
     if (!mainConfigManager.isUpdateCheckEnabled()) return;
-    new UpdateChecker(this, 0).getVersion(version -> {
+    new UpdateChecker(this, 131350).getVersion(version -> {
         if (this.getDescription().getVersion().equalsIgnoreCase(version)) {
             getLogger().info("You are using the latest version!");
         } else {

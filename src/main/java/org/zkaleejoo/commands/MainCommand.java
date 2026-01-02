@@ -118,19 +118,25 @@ public class MainCommand implements CommandExecutor, TabCompleter {
     }
 
     private void playConfigSound(Player player, String soundName) {
+    try {
+        Sound sound = Sound.valueOf(soundName.toUpperCase());
+        player.playSound(player.getLocation(), sound, 1.0f, 1.0f);
+    } catch (IllegalArgumentException e) {
         try {
-            NamespacedKey key = NamespacedKey.minecraft(soundName.toLowerCase());
-            Sound sound = Registry.SOUNDS.get(key);
+            String formattedName = soundName.toLowerCase().replace("_", ".");
+            NamespacedKey key = NamespacedKey.minecraft(formattedName);
+            Sound registrySound = Registry.SOUNDS.get(key);
             
-            if (sound != null) {
-                player.playSound(player.getLocation(), sound, 1.0f, 1.0f);
+            if (registrySound != null) {
+                player.playSound(player.getLocation(), registrySound, 1.0f, 1.0f);
             } else {
-                plugin.getLogger().warning("Sound not found in Minecraft registry: " + soundName);
+                plugin.getLogger().warning("The sound was not found in the Enum or the Register: " + soundName);
             }
-        } catch (Exception e) {
-            plugin.getLogger().warning("Invalid sound format in config: " + soundName);
+        } catch (Exception ex) {
+            plugin.getLogger().warning("Invalid sound format in the configuration: " + soundName);
         }
     }
+}
 
         public void help(CommandSender sender) {
         MainConfigManager config = plugin.getMainConfigManager();

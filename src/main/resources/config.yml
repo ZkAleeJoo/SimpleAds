@@ -1,17 +1,17 @@
 general:
-  prefix: '&8[&9SimpleAds&8] '
-  language: "en"
-  update-check: true
+  prefix: '&8[&9SimpleAds&8] ' # Prefix for messages
+  language: "en" # Language file to use (without .yml)
+  update-check: true # Check for updates on startup
 
-title:
-  fadein: 10
-  stay: 70
-  fadeout: 20
+title: 
+  fadein: 10 # Fade-in duration in ticks
+  stay: 70 # Stay duration in ticks
+  fadeout: 20 # Fade-out duration in ticks
   sound:
-    enabled: true
-    sound: ENTITY_PLAYER_LEVELUP
+    enabled: true # Play sound on title display
+    sound: ENTITY_PLAYER_LEVELUP # Sound to play
 
 anunce:
   sound:
-    enabled: true
-    sound: ENTITY_PLAYER_LEVELUP
+    enabled: true # Play sound on announcement
+    sound: ENTITY_PLAYER_LEVELUP # Sound to play

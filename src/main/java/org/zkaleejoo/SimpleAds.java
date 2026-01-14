@@ -34,13 +34,13 @@ public class SimpleAds extends JavaPlugin {
         Bukkit.getConsoleSender().sendMessage(ChatColor.BLUE + "        \\/          \\/|__|             \\/        \\/      \\/    \\/ ");
 
 
-        Bukkit.getConsoleSender().sendMessage(MessageUtils.getColoredMessage(prefix+"&aIt was activated correctly in the version "+version));
+        Bukkit.getConsoleSender().sendMessage(MessageUtils.getColoredMessage(prefix+"&9It was activated correctly in the version "+version));
 
     }
 
     @Override
     public void onDisable() {
-        Bukkit.getConsoleSender().sendMessage(MessageUtils.getColoredMessage(prefix+"&aIt was disabled correctly in the version "+version));
+        Bukkit.getConsoleSender().sendMessage(MessageUtils.getColoredMessage(prefix+"&9It was disabled correctly in the version "+version));
     }
 
 

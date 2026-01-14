@@ -34,6 +34,7 @@ public class MainCommand implements CommandExecutor, TabCompleter {
                 return true;
             }
             config.reloadConfig();
+            plugin.getAutoAdManager().start();
             sender.sendMessage(MessageUtils.getColoredMessage(prefix + config.getPluginReload()));
             return true;
         }

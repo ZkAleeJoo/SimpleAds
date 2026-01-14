@@ -15,3 +15,14 @@ anunce:
   sound:
     enabled: true # Play sound on announcement
     sound: ENTITY_PLAYER_LEVELUP # Sound to play
+
+# Automatic ad setup
+auto-ads:
+  enabled: true
+  interval: 300 # Time in seconds between each ad (300s = 5 minutes)
+  random: false # If true, it will choose messages randomly. If false, it will follow the order of the list.
+  messages:
+    - '[center]&#FF8C00&l¡FOLLOW US!'
+    - "[center]&7Don't forget to join our Discord:"
+    - '[center]&9&ndiscord.gg/tu-servidor'
+    - '[center]&#55FF55&lTIP: &7Use &a/help &7to see commands.'

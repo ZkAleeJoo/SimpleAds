@@ -11,6 +11,7 @@ import java.util.regex.Pattern;
 public class MessageUtils {
 
     private static final Pattern HEX_PATTERN = Pattern.compile("&#([A-Fa-f0-9]{6})");
+    private static final Pattern STRIP_COLOR_PATTERN = Pattern.compile("(?i)&[0-9A-FK-ORX]|&#[A-F0-9]{6}|§[0-9A-FK-ORX]");
     private final static int CENTER_PX = 154; 
 
     public static String getColoredMessage(String message) {
@@ -25,7 +26,7 @@ public class MessageUtils {
         }
 
         if (message.contains("[center]")) {
-            message = centerText(message.replace("[center]", ""));
+            message = centerText(message);
         }
 
         Matcher matcher = HEX_PATTERN.matcher(message);
@@ -40,21 +41,35 @@ public class MessageUtils {
     }
 
     private static String centerText(String text) {
+        String cleanText = text.replace("[center]", "");
+        
         int messagePxSize = 0;
-        boolean previousCode = false;
         boolean isBold = false;
-
-        for (char c : text.toCharArray()) {
+        
+        for (int i = 0; i < cleanText.length(); i++) {
+            char c = cleanText.charAt(i);
+            
             if (c == '&' || c == '§') {
-                previousCode = true;
-            } else if (previousCode) {
-                previousCode = false;
-                isBold = (c == 'l' || c == 'L');
-            } else {
-                DefaultFontInfo dFI = DefaultFontInfo.getDefaultFontInfo(c);
-                messagePxSize += isBold ? dFI.getBoldLength() : dFI.getLength();
-                messagePxSize++;
+                if (i + 1 < cleanText.length()) {
+                    char next = cleanText.charAt(i + 1);
+                    if (next == '#') { 
+                        i += 7; 
+                        continue;
+                    } else if ("lL".indexOf(next) != -1) {
+                        isBold = true;
+                        i++;
+                        continue;
+                    } else if ("rR0123456789aAbBcCdDeEfFkKmMnoO".indexOf(next) != -1) {
+                        isBold = false;
+                        i++;
+                        continue;
+                    }
+                }
             }
+            
+            DefaultFontInfo dFI = DefaultFontInfo.getDefaultFontInfo(c);
+            messagePxSize += isBold ? dFI.getBoldLength() : dFI.getLength();
+            messagePxSize++; 
         }
 
         int halvedMessageSize = messagePxSize / 2;
@@ -67,6 +82,6 @@ public class MessageUtils {
             compensated += spaceLength;
         }
 
-        return sb.toString() + text;
+        return sb.toString() + cleanText;
     }
 }

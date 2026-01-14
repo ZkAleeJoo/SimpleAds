@@ -18,8 +18,8 @@ messages:
 anunce:
   decoration:
     - '&8&l╔═══════                    ═══════╗'
-    - '                  &c&lNEW ANNOUNCEMENT'
+    - '[center]&c&lNEW ANNOUNCEMENT' #If you want it centered, use [center]
     - ''
-    - '&9⇨ {message}'
+    - '[center]&9⇨ {message}' #If you want it centered, use [center]
     - ''
     - '&8&l╚═══════                    ═══════╝'

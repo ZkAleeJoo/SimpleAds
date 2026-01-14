@@ -61,8 +61,8 @@ public class MainCommand implements CommandExecutor, TabCompleter {
 
                 for (Player p : plugin.getServer().getOnlinePlayers()) {
                     p.sendTitle(
-                        MessageUtils.getColoredMessage(title),
-                        MessageUtils.getColoredMessage(subtitle),
+                        MessageUtils.getColoredMessage(title, p), 
+                        MessageUtils.getColoredMessage(subtitle, p), 
                         config.getTitleFadeIn(),
                         config.getTitleStay(),
                         config.getTitleFadeOut()
@@ -98,7 +98,8 @@ public class MainCommand implements CommandExecutor, TabCompleter {
 
                 for (Player p : plugin.getServer().getOnlinePlayers()) {
                     for (String line : config.getAdDecoration()) {
-                        p.sendMessage(MessageUtils.getColoredMessage(line.replace("{message}", advertisement)));
+                        String formattedLine = line.replace("{message}", advertisement);
+                        p.sendMessage(MessageUtils.getColoredMessage(formattedLine, p)); 
                     }
 
                     if (config.isChatSoundEnabled()) {

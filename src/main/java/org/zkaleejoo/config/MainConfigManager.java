@@ -9,19 +9,21 @@ public class MainConfigManager {
     private CustomConfig configFile;
     private CustomConfig langFile;
     private SimpleAds plugin;
-    
     private String prefix;
     private String selectedLanguage;
     private int titleFadeIn, titleStay, titleFadeOut;
     private boolean titleSoundEnabled, chatSoundEnabled;
     private String titleSound, chatSound;
-
     private String noPermission, pluginReload, usageTitle, usageAnunce, errorSound;
     private List<String> adDecoration;
     private boolean updateCheckEnabled;
     private String msgUpdateAvailable, msgUpdateCurrent, msgUpdateDownload;
     private String titleSent, anunceSent, helpHeader;
     private List<String> helpLines;
+    private boolean autoAdsEnabled;
+    private int autoAdsInterval;
+    private boolean autoAdsRandom;
+    private List<String> autoAdsMessages;
 
     public MainConfigManager(SimpleAds plugin) {
         this.plugin = plugin;
@@ -41,9 +43,12 @@ public class MainConfigManager {
         titleFadeOut = config.getInt("title.fadeout", 20);
         titleSoundEnabled = config.getBoolean("title.sound.enabled", true);
         titleSound = config.getString("title.sound.sound", "ENTITY_PLAYER_LEVELUP");
-        
         chatSoundEnabled = config.getBoolean("anunce.sound.enabled", true);
         chatSound = config.getString("anunce.sound.sound", "ENTITY_PLAYER_LEVELUP");
+        autoAdsEnabled = config.getBoolean("auto-ads.enabled", true);
+        autoAdsInterval = config.getInt("auto-ads.interval", 300);
+        autoAdsRandom = config.getBoolean("auto-ads.random", false);
+        autoAdsMessages = config.getStringList("auto-ads.messages");
 
         String langPath = "messages_" + selectedLanguage + ".yml";
         langFile = new CustomConfig(langPath, "lang", plugin, false);
@@ -79,23 +84,24 @@ public class MainConfigManager {
     public String getUsageAnunce() { return usageAnunce; }
     public String getErrorSound() { return errorSound; }
     public List<String> getAdDecoration() { return adDecoration; }
-    
     public int getTitleFadeIn() { return titleFadeIn; }
     public int getTitleStay() { return titleStay; }
     public int getTitleFadeOut() { return titleFadeOut; }
     public boolean isTitleSoundEnabled() { return titleSoundEnabled; }
     public String getTitleSound() { return titleSound; }
-    
     public boolean isChatSoundEnabled() { return chatSoundEnabled; }
     public String getChatSound() { return chatSound; }
     public boolean isUpdateCheckEnabled() { return updateCheckEnabled; }
     public String getMsgUpdateAvailable() { return msgUpdateAvailable; }
     public String getMsgUpdateCurrent() { return msgUpdateCurrent; }
     public String getMsgUpdateDownload() { return msgUpdateDownload; }
-
     public String getTitleSent() { return titleSent; }
     public String getAnunceSent() { return anunceSent; }
     public String getHelpHeader() { return helpHeader; }
     public List<String> getHelpLines() { return helpLines; }
+    public boolean isAutoAdsEnabled() { return autoAdsEnabled; }
+    public int getAutoAdsInterval() { return autoAdsInterval; }
+    public boolean isAutoAdsRandom() { return autoAdsRandom; }
+    public List<String> getAutoAdsMessages() { return autoAdsMessages; }
 
 }

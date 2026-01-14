@@ -8,6 +8,7 @@ import org.zkaleejoo.config.MainConfigManager;
 import org.zkaleejoo.listeners.PlayerJoinListener;
 import org.zkaleejoo.utils.MessageUtils;
 import org.zkaleejoo.utils.UpdateChecker;
+import org.bukkit.ChatColor;
 
 public class SimpleAds extends JavaPlugin {
 
@@ -25,13 +26,13 @@ public class SimpleAds extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new PlayerJoinListener(this), this);
         checkUpdates();
 
-        Bukkit.getConsoleSender().sendMessage(
-                "  _________.__               .__            _____       .___      \n" +
-                " /   _____/|__| _____ ______ |  |   ____   /  _  \\    __| _/______\n" +
-                " \\_____  \\ |  |/     \\\\____ \\|  | _/ __ \\ /  /_\\  \\  / __ |/  ___/\n" +
-                " /        \\|  |  Y Y  \\  |_> >  |_\\  ___//    |    \\/ /_/ |\\___ \\ \n" +
-                "/_______  /|__|__|_|  /   __/|____/\\___  >____|__  /\\____ /____  >\n" +
-                "        \\/          \\/|__|             \\/        \\/      \\/    \\/ \n");
+        Bukkit.getConsoleSender().sendMessage(ChatColor.BLUE + "  _________.__               .__            _____       .___      ");
+        Bukkit.getConsoleSender().sendMessage(ChatColor.BLUE + " /   _____/|__| _____ ______ |  |   ____   /  _  \\    __| _/______");
+        Bukkit.getConsoleSender().sendMessage(ChatColor.BLUE + " \\_____  \\ |  |/     \\\\____ \\|  | _/ __ \\ /  /_\\  \\  / __ |/  ___/");
+        Bukkit.getConsoleSender().sendMessage(ChatColor.BLUE + " /        \\|  |  Y Y  \\  |_> >  |_\\  ___//    |    \\/ /_/ |\\___ \\ ");
+        Bukkit.getConsoleSender().sendMessage(ChatColor.BLUE + "/_______  /|__|__|_|  /   __/|____/\\___  >____|__  /\\____ /____  >");
+        Bukkit.getConsoleSender().sendMessage(ChatColor.BLUE + "        \\/          \\/|__|             \\/        \\/      \\/    \\/ ");
+
 
         Bukkit.getConsoleSender().sendMessage(MessageUtils.getColoredMessage(prefix+"&aIt was activated correctly in the version "+version));
 

@@ -3,6 +3,7 @@ name: SimpleAds
 version: ${project.version}
 author: ZkAleeJoo
 api-version: 1.19
+softdepend: [PlaceholderAPI]
 
 commands:
   ads:

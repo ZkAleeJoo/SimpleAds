@@ -17,9 +17,9 @@ messages:
 
 anunce:
   decoration:
-    - '&8&l╔═══════                    ═══════╗'
+    - '&8&l╔═══════                             ═══════╗'
     - '[center]&c&lNEW ANNOUNCEMENT' #If you want it centered, use [center]
     - ''
     - '[center]&9⇨ {message}' #If you want it centered, use [center]
     - ''
-    - '&8&l╚═══════                    ═══════╝'
+    - '&8&l╔═══════                             ═══════╗'

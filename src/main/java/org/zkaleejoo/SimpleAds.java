@@ -6,6 +6,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.zkaleejoo.commands.MainCommand;
 import org.zkaleejoo.config.MainConfigManager;
 import org.zkaleejoo.listeners.PlayerJoinListener;
+import org.zkaleejoo.managers.AutoAdManager;
 import org.zkaleejoo.utils.MessageUtils;
 import org.zkaleejoo.utils.UpdateChecker;
 import org.bukkit.ChatColor;
@@ -16,6 +17,7 @@ public class SimpleAds extends JavaPlugin {
     private MainConfigManager mainConfigManager;
     private String version = getDescription().getVersion();
     private String latestVersion;
+    private AutoAdManager autoAdManager;
 
     @Override
     public void onEnable() {
@@ -25,6 +27,8 @@ public class SimpleAds extends JavaPlugin {
         registerCommands();
         getServer().getPluginManager().registerEvents(new PlayerJoinListener(this), this);
         checkUpdates();
+        autoAdManager = new AutoAdManager(this);
+        autoAdManager.start();
 
         Bukkit.getConsoleSender().sendMessage(ChatColor.BLUE + "  _________.__               .__            _____       .___      ");
         Bukkit.getConsoleSender().sendMessage(ChatColor.BLUE + " /   _____/|__| _____ ______ |  |   ____   /  _  \\    __| _/______");
@@ -67,5 +71,9 @@ public class SimpleAds extends JavaPlugin {
     }  
 
     public String getLatestVersion() { return latestVersion; }
+
+    public AutoAdManager getAutoAdManager() {
+        return autoAdManager;
+    }
 
 }
